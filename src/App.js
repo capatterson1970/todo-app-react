@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import TodoCard from './TodoCard.js';
 import './App.css';
+
 
 class App extends Component {
   constructor() {
@@ -28,6 +30,12 @@ class App extends Component {
     this.setState({inputValue: ""})
   }
 
+  deleteItem = (index) => {
+    let copyOfList = this.state.listOfTodos
+    copyOfList.splice(index, 1)
+    this.setState({listOfTodos: [...copyOfList]})
+  }
+
   render() {
 
     return (
@@ -39,7 +47,7 @@ class App extends Component {
             <button type="submit">Submit</button>
           </form>
           <ol>{this.state.listOfTodos.map((todo, index) => {
-            return <li key={index}>{todo}</li>
+            return <TodoCard key={index} index={index} title={todo} clickToRemove={this.deleteItem} />
           })}</ol>
           <a
             className="App-link"
